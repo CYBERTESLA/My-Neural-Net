@@ -7,17 +7,17 @@ arr_y = np.array([[1], [0], [0], [1]])
 arr_w_01 = np.array([])
 # def forward():
     
-def sigmoid(self, x):
+def sigmoid(x):
     # The sigmoid activation function
     return 1 / (1 + np.exp(-x))
     
-def dsigmoid_dx(self, x):
+def dsigmoid_dx(x):
     # First derivative of the sigmoid activation function
     return x * (1-x)
 class NN():
 
     # Specify Hyperparameters i.e. The Architecture of the Network.
-    def __init__(train_data, target, learning_rate=0.1, epochs=100, num_inputs=2, num_hidden=2, num_output=1):
+    def __init__(self, train_data, target, learning_rate=0.1, epochs=100, num_inputs=2, num_hidden=2, num_output=1):
         self.train_data = train_data
         self.target_values = target
         self.lr = learning_rate
@@ -37,13 +37,14 @@ class NN():
         # Forward Propagation through the network
         # Implementing wX+b
         self.h1 = np.dot(X, self.weights_01) + self.b01 # operating from input layer to hidden layer
-        a1 = sigmoid(self.h1) # applying activation function
-        self.op = np.dot(self.h1, self.weights_12) + self.b12 # operating from hidden layer to output layer
-        a2 = sigmoid(self.op) # Final output
+        self.a1 = sigmoid(self.h1) # applying activation function
+        self.op = np.dot(self.a1, self.weights_12) + self.b12 # operating from hidden layer to output layer
+        self.a2 = sigmoid(self.op) # Final output
+
+        print(self.a2)
 
 
-
-    
-
+Network = NN(arr_x, arr_y)
+Network.forward(np.array([1,1]))
 
         
