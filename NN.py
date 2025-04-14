@@ -41,10 +41,23 @@ class NN():
         self.op = np.dot(self.a1, self.weights_12) + self.b12 # operating from hidden layer to output layer
         self.a2 = sigmoid(self.op) # Final output
 
-        print(self.a2)
+        return self.a2
+
+        # print(self.a2)
+
+    def Cost(self):
+        # Function to find the Cost of our Model
+        sum = 0
+        for i in range(int((arr_x.size)/2)): # Runs for each training example
+            loss = 0.5 * (arr_y[i] - self.forward(arr_x[i])) # Calculating Loss of each training example
+            sum = sum + loss # Adding all losses to find cost
+            
+        return sum
 
 
 Network = NN(arr_x, arr_y)
-Network.forward(np.array([1,1]))
+# Network.forward(np.array([1,1]))
 
-        
+print(Network.forward(np.array([1,1])))
+
+print(Network.Cost())
