@@ -38,10 +38,10 @@ class NN():
         # Implementing wX+b
 
         # X is z1
-        self.h1 = np.dot(X, self.weights_01) + self.b01 # operating from input layer to hidden layer (z2)
-        self.a1 = sigmoid(self.h1) # applying activation function (a2)
-        self.op = np.dot(self.a1, self.weights_12) + self.b12 # operating from hidden layer to output layer (z3)
-        self.a2 = sigmoid(self.op) # Final output (y_hat) == (a3)
+        self.z2 = np.dot(X, self.weights_01) + self.b01 # operating from input layer to hidden layer (z2)
+        self.a1 = sigmoid(self.z2) # applying activation function (a2)
+        self.z3 = np.dot(self.a1, self.weights_12) + self.b12 # operating from hidden layer to output layer (z3)
+        self.a2 = sigmoid(self.z3) # Final output (y_hat) == (a3)
 
         return self.a2
 
@@ -56,12 +56,18 @@ class NN():
             
         return sum
     
-    def Back(self, X, y): # X is the input dataset (arr_x) and y is the output dataset (arr_y)
+    def Cost_derivative(self, X, y): # X is the input dataset (arr_x) and y is the output dataset (arr_y)
         self.yHat = self.forward(X)
 
-        del3 = np.multiply(-(y - self.yHat), dsigmoid_dx(self.op)) # Computing delta3, refer to equation 6 in notes.
+        del3 = np.multiply(-(y - self.yHat), dsigmoid_dx(self.z3)) # Computing delta3, refer to equation 6 in notes.
 
-        dJdW = np.dot(self.a1.T, del3)
+        dJdW2 = np.dot(self.a2.T, del3)
+
+        del2 = np.dot(del3, self.weights_12.T) * dsigmoid_dx(self.z2)
+        
+        dJdW1 = np.dot(X.T, del2)
+
+        return dJdW2, dJdW1
 
         
 
