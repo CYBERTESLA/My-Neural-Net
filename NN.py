@@ -50,6 +50,7 @@ class NN():
     def Cost(self):
         # Function to find the Cost of our Model
         sum = 0
+
         for i in range(int((arr_x.size)/2)): # Runs for each training example
             loss = 0.5 * (arr_y[i] - self.forward(arr_x[i])) # Calculating Loss of each training example
             sum = sum + loss # Adding all losses to find cost
@@ -59,17 +60,23 @@ class NN():
     def Cost_derivative(self, X, y): # X is the input dataset (arr_x) and y is the output dataset (arr_y)
         self.yHat = self.forward(X)
 
-        del3 = np.multiply(-(y - self.yHat), dsigmoid_dx(self.z3)) # Computing delta3, refer to equation 6 in notes.
+        delw3 = np.multiply(-(y - self.yHat), dsigmoid_dx(self.z3)) # Computing delta3, refer to equation 6 in notes.
 
-        dJdW2 = np.dot(self.a2.T, del3)
+        dJdW2 = np.dot(self.a2.T, delw3)
 
-        del2 = np.dot(del3, self.weights_12.T) * dsigmoid_dx(self.z2)
+        delw2 = np.dot(delw3, self.weights_12.T) * dsigmoid_dx(self.z2)
         
-        dJdW1 = np.dot(X.T, del2)
+        dJdW1 = np.dot(X.T, delw2)
 
-        return dJdW2, dJdW1
+        delb3 = np.multiply(-(y - self.yHat), dsigmoid_dx(self.z3))
 
+        dJdb2 = delb3
+
+        dJdb1 = np.dot(self.a2.T, delb3) * dsigmoid_dx(self.z2)
         
+        return dJdW2, dJdW1, dJdb2, dJdb1
+    
+    
 
 
 Network = NN(arr_x, arr_y)
