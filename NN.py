@@ -5,7 +5,6 @@ arr_x = np.array([[0,0], [0,1], [1,0], [1,1]])
 arr_y = np.array([[1], [0], [0], [1]])
 
 arr_w_01 = np.array([])
-# def forward():
     
 def sigmoid(x):
     # The sigmoid activation function
@@ -76,11 +75,23 @@ class NN():
         
         return dJdW2, dJdW1, dJdb2, dJdb1
     
-    
+    def update(self):
+        # Using Gradient Descent here
+
+        dJdW2, dJdW1, dJdb2, dJdb1 = self.Cost_derivative(self.train_data, self.target_values)
+
+        for i in range(self.epochs):
+            self.weights_12 -= self.lr * dJdW2
+            self.b12 -= self.lr * dJdb2
+            self.weights_01 -= self.lr * dJdW1
+            self.b01 -= self.lr * dJdb1
+
+
+        
 
 
 Network = NN(arr_x, arr_y)
-# Network.forward(np.array([1,1]))
+Network.forward(np.array([1,1]))
 
 print(Network.forward(np.array([1,1])))
 
