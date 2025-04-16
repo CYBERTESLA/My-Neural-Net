@@ -140,7 +140,8 @@ print(Network.Cost(arr_x, arr_y))
 
 
 
-
+# NEXT: Use Numerical Gradient Checking 
+# https://youtu.be/pHMzNW8Agq4?list=PLiaHhY2iBX9hdHaRr6b7XevZtgZRa1PoU&t=234
 
 
 
