@@ -2,13 +2,20 @@
 
 A simple neural network implementation in Python using NumPy to solve the XOR problem. This project demonstrates the fundamentals of forward propagation, backpropagation, and training using gradient descent.
 
+## Disclaimer:
+
+This project is currently under debugging. 
+The steps include:
+ - Debugging the Math behind the Backpropagation Algorithm
+ - Finding appropriate learning rate
+ - and so on.
+
 ## 🔍 Overview
 
 This project implements a feedforward neural network with one hidden layer to learn the XOR logic gate. It includes:
 
-- Manual implementation of forward and backward propagation
-- Training using gradient descent
-- Visualization of the loss curve over epochs using Matplotlib
+- Manual implementation of forward  propagation
+- Training using gradient descent (Currently Implementing)
 
 ## 📁 Project Structure
 
@@ -54,14 +61,6 @@ The training process records the loss at each epoch. After training, a plot of t
 - Backpropagation to compute gradients
 - Weight and bias updates using gradient descent
 - Loss tracking and visualization
-
-## 📈 Example Output
-
-Upon running the script, you should see the loss decreasing over epochs, indicating that the network is learning the XOR function.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request with your improvements.
 
 ## 📄 License
 

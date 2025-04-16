@@ -1,5 +1,7 @@
 import numpy as np
 
+import matplotlib as plt
+
 # XOR Dataset
 arr_x = np.array([[0,0], [0,1], [1,0], [1,1]])
 arr_y = np.array([[1], [0], [0], [1]])
@@ -58,7 +60,7 @@ class NN():
 
         # print(self.weights_12)
 
-        return self.a2.item()
+        return self.a2
 
         # print(self.a2)
 
@@ -117,6 +119,8 @@ class NN():
 
     def predict(self, X):
         
+        # Setting a Threshold for our prediction
+
         npX = np.array(X)
         output = self.forward(npX)
         if (output >= 0.5):
@@ -138,4 +142,16 @@ print(Network.Cost(arr_x, arr_y))
 # print(Network.predict([1, 1]))
 # print(Network.losses)
 
+# Initialize and train the network
+nn = NN(arr_x, arr_y, learning_rate=0.1, epochs=1000)
+nn.train()
 
+# Plot the loss over epochs
+plt.figure(figsize=(10, 6))
+# plt.plot(nn.losses, label='Loss')
+plt.title('Loss Over Epochs')
+plt.xlabel('Epoch')
+plt.ylabel('Loss')
+plt.legend()
+plt.grid(True)
+plt.show()
