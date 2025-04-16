@@ -4,7 +4,6 @@ import numpy as np
 arr_x = np.array([[0,0], [0,1], [1,0], [1,1]])
 arr_y = np.array([[1], [0], [0], [1]])
 
-arr_w_01 = np.array([])
     
 
 class NN():
@@ -15,7 +14,6 @@ class NN():
         self.target_values = target
         self.lr = learning_rate
         self.epochs = epochs
-
 
         # initializing weights randomly
         self.weights_01 = np.random.uniform(size=(num_inputs, num_hidden)) # weights between input and hidden layer (w1)
@@ -58,19 +56,26 @@ class NN():
         self.z3 = np.dot(self.a1, self.weights_12) + self.b12 # operating from hidden layer to output layer (z3)
         self.a2 = self.sigmoid(self.z3) # Final output (y_hat) == (a3)
 
-        return self.a2
+        # print(self.weights_12)
+
+        return self.a2.item()
 
         # print(self.a2)
 
-    def Cost(self):
+    def Cost(self, X, y):
         # Function to find the Cost of our Model
         sum = 0
 
+        losses = []
+
         for i in range(int((arr_x.size)/2)): # Runs for each training example
-            loss = 0.5 * ((arr_y[i] - self.forward(arr_x[i])) ** 2) # Calculating Loss of each training example
+            loss = 0.5 * ((y[i] - self.forward(X[i])) ** 2) # Calculating Loss of each training example
             sum = sum + loss # Adding all losses to find cost
+
+        losses.append(sum.item())
+        print(losses)
             
-        return sum
+        return sum.tolist(), losses
     
     def Cost_derivative(self, X, y): # X is the input dataset (arr_x) and y is the output dataset (arr_y)
         self.yHat = self.forward(X)
@@ -109,22 +114,30 @@ class NN():
             # print(dJdb2)
             # self.b12 -= np.array([[self.lr], [self.lr], [self.lr], [self.lr]]) * dJdb2
             # self.b01 -= self.lr * dJdb1
-    
-    # def predict(self, X):
-    #     self.forward(X)
-    #     return 
+
+    def predict(self, X):
+        
+        npX = np.array(X)
+        output = self.forward(npX)
+        if (output >= 0.5):
+            return 1
+        else:
+            return 0 
 
 Network = NN(arr_x, arr_y)
-# Network.forward(np.array([1,1]))
+Network.forward(np.array([1,1]))
 
 # print(Network.forward(np.array([1,1])))
 
-print(Network.Cost())
+print(Network.Cost(arr_x, arr_y))
 
-Network.train()
+# Network.train()
 
-print(Network.Cost())
+# print(Network.Cost())
+
+# print(Network.predict([1, 1]))
 # print(Network.losses)
+
 
 
 
